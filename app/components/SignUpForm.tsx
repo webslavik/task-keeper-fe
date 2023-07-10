@@ -1,10 +1,14 @@
 'use client';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import * as Yup from 'yup';
 import { ROUTES } from '@/app/constants';
 import { Form, Field } from './shared/FormComponents';
 import Input from './shared/Input';
 import Button, { BUTTON_TYPES } from './shared/Button';
 import Link from './shared/Link';
+import ErrorMessage from './shared/ErrorMessage';
+import { useCreateUserMutation } from '../store/services/auth';
 
 const SignUpSchema = Yup.object().shape({
     email: Yup
@@ -22,9 +26,18 @@ const SignUpSchema = Yup.object().shape({
 });
 
 const SignUpForm = () => {
-    const onSubmit = (values: any) => {
-        console.log('>>> values', values);
+    const router = useRouter();
+    const [createUser, { isSuccess, isError, error }] = useCreateUserMutation();
+
+    const onSubmit = async (values: any) => {
+        await createUser(values);
     };
+
+    useEffect(() => {
+        if (isSuccess) {
+            router.push(ROUTES.home);
+        }
+    }, [isSuccess, router]);
 
     return (
         <Form initialValues={{ email: '', password: '' }} validationSchema={SignUpSchema} onSubmit={onSubmit}>
@@ -43,6 +56,10 @@ const SignUpForm = () => {
                             <Input {...props} type='password' label='Password' className='mb-4' />
                         )}
                     </Field>
+
+                    {isError && error && (
+                        <ErrorMessage message={error.data.detail} className='mb-4'/>
+                    )}
 
                     <Button type={BUTTON_TYPES.primary} className='mb-4' isSubmit>
                         Create an account

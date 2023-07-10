@@ -1,6 +1,7 @@
-import './globals.css';
 import { Inter } from 'next/font/google';
+import ReduxProvider from './store/ReduxProvider';
 import BaseHeader from './components/BaseHeader';
+import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,9 +18,11 @@ export default function RootLayout({
     return (
         <html lang='en'>
             <body className={`${inter.className} h-screen bg-slate-100`}>
-                <BaseHeader />
+                <ReduxProvider>
+                    <BaseHeader />
 
-                {children}
+                    {children}
+                </ReduxProvider>
             </body>
         </html>
     );
