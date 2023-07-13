@@ -1,10 +1,12 @@
+import Text from './Text';
+
 type Props = {
     message: string;
     className?: string;
 }
 
 const ErrorMessage = ({ message, className = '' }: Props) => {
-    return <div className={`text-sm text-red-600 ${className}`}>{message}</div>
+    return <Text className={`text-red-600 ${className}`}>{message}</Text>;
 };
 
 export default ErrorMessage;

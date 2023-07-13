@@ -1,7 +1,8 @@
 'use client';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
+import Button from './shared/Button';
+import Link from './shared/Link';
 import { ROUTES } from '@/app/constants';
 import { logout } from '../store/slices/authSlice';
 
@@ -24,13 +25,13 @@ const BaseHeader = () => {
             </Link>
             <div className=''>
                 {!isAuthorized && (
-                    <Link href={ROUTES.registration} className='py-2 px-3 bg-indigo-500 text-white text-sm font-semibold rounded-md shadow focus:outline-none'>
+                    <Link href={ROUTES.registration}>
                         Sign up
                     </Link>
                 )}
 
                 {isAuthorized && (
-                    <button onClick={onLogout}>Log out</button>
+                    <Button onClick={onLogout}>Log out</Button>
                 )}
             </div>
         </div>

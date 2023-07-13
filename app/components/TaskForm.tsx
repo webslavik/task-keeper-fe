@@ -5,31 +5,22 @@ import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import { ROUTES } from '@/app/constants';
 import { Form, Field } from './shared/FormComponents';
-import Title from './shared/Title';
-import Text from './shared/Text';
 import Input from './shared/Input';
 import Button, { BUTTON_TYPES } from './shared/Button';
-import Link from './shared/Link';
 import ErrorMessage from './shared/ErrorMessage';
 import { useCreateUserMutation } from '../store/services/auth';
 import { startLoading, finishLoading } from '@/app/store/slices/sharedSlice';
 
-const SignUpSchema = Yup.object().shape({
-    email: Yup
+const TaskSchema = Yup.object().shape({
+    title: Yup
         .string()
-        .email('Invalid email')
         .required('Required'),
-    password: Yup
+    description: Yup
         .string()
-        .min(8, 'Password must be 8 characters long')
-        .matches(/[0-9]/, 'Password requires a number')
-        .matches(/[a-z]/, 'Password requires a lowercase letter')
-        .matches(/[A-Z]/, 'Password requires an uppercase letter')
-        .matches(/[^\w]/, 'Password requires a symbol')
         .required('Required'),
 });
 
-const SignUpForm = () => {
+const TaskForm = () => {
     const dispatch = useDispatch();
     const router = useRouter();
     const [createUser, { isSuccess, isError, error }] = useCreateUserMutation();
@@ -46,40 +37,35 @@ const SignUpForm = () => {
         }
     }, [isSuccess, router]);
 
+    const initialValues = { title: '', description: '' };
+
     return (
-        <Form initialValues={{ email: '', password: '' }} validationSchema={SignUpSchema} onSubmit={onSubmit}>
+        <Form initialValues={initialValues} validationSchema={TaskSchema} onSubmit={onSubmit}>
             {({ handleSubmit }) => (
                 <form onSubmit={handleSubmit} noValidate>
-                    <Title type={3} className='mb-5'>Get started on T.K. today</Title>
-
-                    <Field name='email'>
+                    <Field name='title'>
                         {(props: any) => (
-                            <Input {...props} type='email' label='Email' className='mb-2' />
+                            <Input {...props} type='title' label='Title' className='mb-2' />
                         )}
                     </Field>
 
-                    <Field name='password'>
+                    <Field name='description'>
                         {(props: any) => (
-                            <Input {...props} type='password' label='Password' className='mb-4' />
+                            <Input {...props} type='description' label='Description' className='mb-4' />
                         )}
                     </Field>
 
                     {isError && error && (
-                        <ErrorMessage message={error.data.detail} className='mb-4' />
+                        <ErrorMessage message={error.data.detail} className='mb-4'/>
                     )}
 
                     <Button type={BUTTON_TYPES.primary} className='mb-4' isSubmit>
-                        Create an account
+                        Add/Create task
                     </Button>
-
-                    <Text>
-                        Already have an account?
-                        <Link href={ROUTES.home} className='ml-2'>Log in</Link>
-                    </Text>
                 </form>
             )}
         </Form>
     );
 };
 
-export default SignUpForm;
+export default TaskForm;

@@ -1,13 +1,10 @@
-'use strict';
-import { useGetTasksQuery } from '../store/services/task';
+import Tasks from '@/app/components/Tasks';
 
 const DashboardPage = () => {
-    const { data, error, isLoading } = useGetTasksQuery();
-
     return (
-        <div>
-        <h1>Dashboard</h1>
-        </div>
+        <>
+            <Tasks />
+        </>
     );
 };
 

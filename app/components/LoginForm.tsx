@@ -5,12 +5,15 @@ import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/app/constants';
 import { Form, Field } from './shared/FormComponents';
+import Title from './shared/Title';
+import Text from './shared/Text';
 import Input from './shared/Input';
 import Button, { BUTTON_TYPES } from './shared/Button';
 import Link from './shared/Link';
 import ErrorMessage from './shared/ErrorMessage';
 import { useLoginUserMutation } from '@/app/store/services/auth';
 import { login } from '@/app/store/slices/authSlice';
+import { startLoading, finishLoading } from '@/app/store/slices/sharedSlice';
 
 const LoginSchema = Yup.object().shape({
     email: Yup
@@ -28,12 +31,16 @@ const LoginForm = () => {
     const [loginUser, { isSuccess, isError, error }] = useLoginUserMutation();
 
     const onSubmit = async (values: any) => {
-        const {data} = await loginUser(values);
+        dispatch(startLoading());
+
+        const { data } = await loginUser(values);
         const accessToken = data?.access_token;
 
         if (accessToken) {
-            dispatch(login({accessToken}));
+            dispatch(login({ accessToken }));
         }
+
+        dispatch(finishLoading());
     };
 
     useEffect(() => {
@@ -42,13 +49,13 @@ const LoginForm = () => {
         }
     }, [isSuccess, router]);
 
-    const initialValues = { email: 'test@g.com', password: '12345678qQ!' };
+    const initialValues = { email: '', password: '' };
 
     return (
         <Form initialValues={initialValues} validationSchema={LoginSchema} onSubmit={onSubmit}>
             {({ handleSubmit }) => (
                 <form onSubmit={handleSubmit} noValidate>
-                    <h1 className='mb-5 text-xl'>Log in to your account</h1>
+                    <Title type={3} className='mb-5'>Log in to your account</Title>
 
                     <Field name='email'>
                         {(props: any) => (
@@ -63,17 +70,17 @@ const LoginForm = () => {
                     </Field>
 
                     {isError && error && (
-                        <ErrorMessage message={error.data.detail} className='mb-4'/>
+                        <ErrorMessage message={error.data.detail} className='mb-4' />
                     )}
 
                     <Button type={BUTTON_TYPES.primary} className='mb-4' isSubmit>
                         Login
                     </Button>
 
-                    <div>
+                    <Text>
                         Do not have an account?
                         <Link href={ROUTES.registration} className='ml-2'>Sign up</Link>
-                    </div>
+                    </Text>
                 </form>
             )}
         </Form>
