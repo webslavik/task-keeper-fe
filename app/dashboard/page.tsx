@@ -1,8 +1,13 @@
+import Link from '@/app/components/shared/Link'; 
 import Tasks from '@/app/components/Tasks';
+import {ROUTES} from '@/app/constants';
 
 const DashboardPage = () => {
     return (
         <>
+            <div>
+                <Link href={ROUTES.createTask}>Create new</Link>
+            </div>
             <Tasks />
         </>
     );

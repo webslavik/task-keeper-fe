@@ -1,14 +1,17 @@
-import { Input as BaseInput } from 'antd';
+import { Input } from 'antd';
 import Text from './Text';
 import ErrorMessage from './ErrorMessage';
+
+const { TextArea: BaseTextArea } = Input;
 
 type Props = {
     name: string;
     value: string;
-    disabled?: boolean;
     label: string;
+    rows?: number;
     placeholder?: string;
     type?: string;
+    disabled?: boolean;
     meta: {
         touched: boolean;
         error: string;
@@ -18,13 +21,14 @@ type Props = {
     onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
 
-const Input = ({ name, label, placeholder, value, type, meta, disabled = false, className = '', onChange, onBlur }: Props) => {
-    const inputProps = {
+const TextArea = ({ name, rows = 4, label, placeholder, value, type, disabled = false, meta, className = '', onChange, onBlur }: Props) => {
+    const textAreaProps = {
         name,
         value,
         type,
         placeholder,
         disabled,
+        rows,
         onChange,
         onBlur,
     };
@@ -32,7 +36,7 @@ const Input = ({ name, label, placeholder, value, type, meta, disabled = false, 
     return (
         <label className={`block ${className}`}>
             <Text>{label}</Text>
-            <BaseInput {...inputProps} />
+            <BaseTextArea {...textAreaProps}/>
 
             {meta.touched && meta.error && (
                 <ErrorMessage message={meta.error} className='mt-1' />
@@ -41,4 +45,4 @@ const Input = ({ name, label, placeholder, value, type, meta, disabled = false, 
     );
 };
 
-export default Input;
+export default TextArea;

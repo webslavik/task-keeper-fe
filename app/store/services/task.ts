@@ -21,12 +21,44 @@ const taskApi = createApi({
     endpoints: (builder) => ({
         getTasks: builder.query({
             query: () => ({
-                url: '/',
+                url: '',
                 method: 'GET',
+            }),
+        }),
+        getTask: builder.query({
+            query: (id) => ({
+                url: `/${id}`,
+                method: 'GET',
+            }),
+        }),
+        createTask: builder.mutation({
+            query: (task) => ({
+                url: '',
+                method: 'POST',
+                body: task,
+            }),
+        }),
+        updateTask: builder.mutation({
+            query: (task) => ({
+                url: `/${task.id}`,
+                method: 'PATCH',
+                body: task,
+            }),
+        }),
+        deleteTask: builder.mutation({
+            query: (id) => ({
+                url: `/${id}`,
+                method: 'DELETE'
             }),
         }),
     }),
 });
 
-export const { useGetTasksQuery } = taskApi;
+export const {
+    useGetTasksQuery,
+    useGetTaskQuery,
+    useCreateTaskMutation,
+    useUpdateTaskMutation,
+    useDeleteTaskMutation,
+} = taskApi;
 export default taskApi;

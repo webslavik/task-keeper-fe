@@ -49,7 +49,7 @@ const LoginForm = () => {
         }
     }, [isSuccess, router]);
 
-    const initialValues = { email: '', password: '' };
+    const initialValues = { email: 'test@g.com', password: '12345678qQ!' };
 
     return (
         <Form initialValues={initialValues} validationSchema={LoginSchema} onSubmit={onSubmit}>

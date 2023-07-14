@@ -1,8 +1,9 @@
 import { Button as BaseButton } from 'antd';
 
 type Props = {
-    type?: string;
     children: React.ReactNode;
+    type?: string;
+    disabled?: boolean;
     className?: string;
     href?: string;
     isLink?: boolean;
@@ -12,6 +13,7 @@ type Props = {
 
 const BUTTON_TYPES = {
     primary: 'primary',
+    danger: 'danger',
     ghost: 'ghost',
     dashed: 'dashed',
     link: 'link',
