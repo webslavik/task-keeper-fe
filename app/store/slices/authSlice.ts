@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-const accessTokenMock = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0IiwiZXhwIjoxNjg5MzM1MjQxfQ.US5qT2JU2Zfe1sGXAncNbS1T4nU-x-EW7y2fLpO6A5s';
+import { LOCAL_STORAGE_ITEMS } from '@/app/constants';
 
 const initialState = {
     isAuthorized: false,
-    accessToken: accessTokenMock,
+    accessToken: null,
 };
 
 const authSlice = createSlice({
@@ -13,11 +12,15 @@ const authSlice = createSlice({
     reducers: {
         login(state, { payload }) {
             state.isAuthorized = true;
+
             state.accessToken = payload.accessToken;
+            localStorage.setItem(LOCAL_STORAGE_ITEMS.accessToken, payload.accessToken);
         },
         logout(state) {
             state.isAuthorized = false;
             state.accessToken = null;
+
+            localStorage.removeItem(LOCAL_STORAGE_ITEMS.accessToken);
         }
     }
 });

@@ -1,22 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { handleUnauthorizeError, getAuthHeader } from './utils';
 import { API_URL } from '@/app/constants';
 
 const baseTaskQuery = fetchBaseQuery({
     baseUrl: `${API_URL}/api/tasks`,
-    prepareHeaders: (headers, { getState }) => {
-        const accessToken = (getState() as any).auth.accessToken;
-
-        if (accessToken) {
-            headers.set('authorization', `Bearer ${accessToken}`);
-        }
-
-        return headers;
-    }
+    prepareHeaders: getAuthHeader,
 });
 
 const taskApi = createApi({
     reducerPath: 'taskApi',
-    baseQuery: baseTaskQuery,
+    baseQuery: handleUnauthorizeError(baseTaskQuery),
     tagTypes: ['Task'],
     endpoints: (builder) => ({
         getTasks: builder.query({

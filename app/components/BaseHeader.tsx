@@ -15,12 +15,12 @@ const BaseHeader = () => {
 
     const onLogout = () => {
         dispatch(logout());
-        router.push(ROUTES.home);
+        router.push(ROUTES.root);
     };
 
     return (
         <div className='flex justify-between items-center px-12 py-4 bg-white shadow-md'>
-            <Link href={ROUTES.home} className='font-semibold'>
+            <Link href={ROUTES.root} className='font-semibold'>
                 T.K.
             </Link>
             <div className=''>

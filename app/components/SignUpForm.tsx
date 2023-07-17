@@ -42,7 +42,7 @@ const SignUpForm = () => {
 
     useEffect(() => {
         if (isSuccess) {
-            router.push(ROUTES.home);
+            router.push(ROUTES.root);
         }
     }, [isSuccess, router]);
 
@@ -74,7 +74,7 @@ const SignUpForm = () => {
 
                     <Text>
                         Already have an account?
-                        <Link href={ROUTES.home} className='ml-2'>Log in</Link>
+                        <Link href={ROUTES.root} className='ml-2'>Log in</Link>
                     </Text>
                 </form>
             )}
