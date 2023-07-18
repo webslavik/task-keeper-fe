@@ -20,7 +20,7 @@ const TaskSchema = Yup.object().shape({
 });
 
 type Props = {
-    id: number;
+    id?: number;
     title ?: string;
     description ?: string;
 }
@@ -37,10 +37,10 @@ const TaskForm = (task: Props) => {
     const [updateTask, updateTaskResult] = useUpdateTaskMutation();
     const [deleteTask, deleteTaskResult] = useDeleteTaskMutation();
 
-    const isSuccess = [createTaskResult.isSuccess, deleteTaskResult.isSuccess].some(Boolean);
-    const isLoading = [createTaskResult.isLoading, deleteTaskResult.isLoading].some(Boolean);
-    const isError = [createTaskResult.isError, deleteTaskResult.isError].some(Boolean);;
-    const errorMessage = getErrorMessage(createTaskResult.error || deleteTaskResult.error);
+    const isSuccess = [createTaskResult.isSuccess, updateTaskResult.isSuccess, deleteTaskResult.isSuccess].some(Boolean);
+    const isLoading = [createTaskResult.isLoading, updateTaskResult.isLoading, deleteTaskResult.isLoading].some(Boolean);
+    const isError = [createTaskResult.isError, updateTaskResult.isError, deleteTaskResult.isError].some(Boolean);;
+    const errorMessage = getErrorMessage(createTaskResult.error || updateTaskResult.error || deleteTaskResult.error);
 
     const onSubmit = async (values: any) => {
         if (task.id) {

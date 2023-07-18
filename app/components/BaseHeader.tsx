@@ -1,8 +1,9 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import Button from './shared/Button';
-import Link from './shared/Link';
+import Button from '@/app/components/shared/Button';
+import Title from '@/app/components/shared/Title';
+import Link from '@/app/components/shared/Link';
 import { ROUTES } from '@/app/constants';
 import { logout } from '../store/slices/authSlice';
 
@@ -20,9 +21,9 @@ const BaseHeader = () => {
 
     return (
         <div className='flex justify-between items-center px-12 py-4 bg-white shadow-md'>
-            <Link href={ROUTES.root} className='font-semibold'>
+            <Title type={5}>
                 T.K.
-            </Link>
+            </Title>
             <div className=''>
                 {!isAuthorized && (
                     <Link href={ROUTES.registration}>

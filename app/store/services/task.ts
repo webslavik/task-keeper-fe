@@ -10,6 +10,7 @@ const baseTaskQuery = fetchBaseQuery({
 const taskApi = createApi({
     reducerPath: 'taskApi',
     baseQuery: handleUnauthorizeError(baseTaskQuery),
+    keepUnusedDataFor: 0,
     tagTypes: ['Task'],
     endpoints: (builder) => ({
         getTasks: builder.query({
