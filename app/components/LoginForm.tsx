@@ -34,10 +34,10 @@ const LoginForm = () => {
         dispatch(startLoading());
 
         const { data } = await loginUser(values);
-        const accessToken = data?.access_token;
+        const { access_token: accessToken, user } = data ?? {};
 
         if (accessToken) {
-            dispatch(login({ accessToken }));
+            dispatch(login({ accessToken, user }));
         }
 
         dispatch(finishLoading());
@@ -49,7 +49,7 @@ const LoginForm = () => {
         }
     }, [isSuccess, router]);
 
-    const initialValues = { email: 'test@g.com', password: '12345678qQ!' };
+    const initialValues = { email: '', password: '' };
 
     return (
         <Form initialValues={initialValues} validationSchema={LoginSchema} onSubmit={onSubmit}>
