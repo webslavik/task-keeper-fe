@@ -19,6 +19,12 @@ const SignUpSchema = Yup.object().shape({
         .string()
         .email('Invalid email')
         .required('Required'),
+    first_name: Yup
+        .string()
+        .required('Required'),
+    last_name: Yup
+        .string()
+        .required('Required'),
     password: Yup
         .string()
         .min(8, 'Password must be 8 characters long')
@@ -52,9 +58,21 @@ const SignUpForm = () => {
                 <form onSubmit={handleSubmit} noValidate>
                     <Title type={3} className='mb-5'>Get started on T.K. today</Title>
 
+                    <Field name='first_name'>
+                        {(props: any) => (
+                            <Input {...props} type='text' label='First name' className='mb-2' />
+                        )}
+                    </Field>
+
+                    <Field name='last_name'>
+                        {(props: any) => (
+                            <Input {...props} type='text' label='Last name' className='mb-2' />
+                        )}
+                    </Field>
+
                     <Field name='email'>
                         {(props: any) => (
-                            <Input {...props} type='email' label='Email' className='mb-2' />
+                            <Input {...props} type='text' label='Email' className='mb-2' />
                         )}
                     </Field>
 

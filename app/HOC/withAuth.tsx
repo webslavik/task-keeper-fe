@@ -17,14 +17,15 @@ const withAuth = (Component: any) => {
         useEffect(() => {
             (async () => {
                 const accessToken = localStorage.getItem(LOCAL_STORAGE_ITEMS.accessToken);
+                const userData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_ITEMS.userData) ?? '');
 
                 if (!isAuthorized && accessToken === 'undefined') {
                     router.push(ROUTES.root);
                     return null;
                 }
 
-                if (accessToken && !storedAccessToken) {
-                    await dispatch(login({accessToken}));
+                if (accessToken && !storedAccessToken && userData) {
+                    await dispatch(login({accessToken, user: userData}));
                 }
 
                 setIsReady(true);

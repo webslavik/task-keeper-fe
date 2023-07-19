@@ -1,22 +1,31 @@
 'use client';
+import Title from '@/app/components/shared/Title';
+import NoData from '@/app/components/shared/NoData';
 import TaskItem from '@/app/components/TaskItem';
 import { useGetTasksQuery } from '@/app/store/services/task';
 
 const Tasks = () => {
     const { data, isSuccess, isLoading } = useGetTasksQuery();
+    const isDataExisted = !!data?.tasks.length;
 
     return (
-        <div>
-            <h2>Tasks</h2>
-
+        <>
             {isLoading && <p>Loading...</p>}
 
-            {isSuccess && data.tasks.length && (
-                data.tasks.map((task) => {
-                    return <TaskItem key={task.id} className='mb-5' {...task} />;
-                })
+            {isSuccess && (
+                <>
+                    <Title type={2}>Tasks</Title>
+
+                    {isDataExisted && (
+                        data.tasks.map((task) => {
+                            return <TaskItem key={task.id} className='mb-5' {...task} />;
+                        })
+                    )}
+
+                    {!isDataExisted && <NoData />}
+                </>
             )}
-        </div>
+        </>
     );
 };
 

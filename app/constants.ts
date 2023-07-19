@@ -13,4 +13,5 @@ export const ROUTES = {
 
 export const LOCAL_STORAGE_ITEMS = {
     accessToken: 'accessToken',
+    userData: 'userData',
 };

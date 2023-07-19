@@ -7,7 +7,7 @@ import {ROUTES} from '@/app/constants';
 const DashboardPage = () => {
     return (
         <>
-            <div>
+            <div className='mb-8'>
                 <Link href={ROUTES.createTask}>Create new</Link>
             </div>
             <Tasks />
