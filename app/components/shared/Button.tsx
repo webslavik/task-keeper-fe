@@ -25,6 +25,7 @@ const Button = ({type = BUTTON_TYPES.primary, children, className = '', isSubmit
     const htmlType = isSubmit ? 'submit' : 'button';
 
     return (
+        // @ts-ignore
         <BaseButton {...props} htmlType={htmlType} type={type} className={`${className}`}>
             {children}
         </BaseButton>

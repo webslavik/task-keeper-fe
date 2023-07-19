@@ -10,6 +10,7 @@ type Props = {
 
 const Title = ({ children, type = 1, className = '' }: Props) => {
     return (
+        // @ts-ignore
         <BasicTitle level={type} className={`mt-0 mb-0 ${className}`}>
             {children}
         </BasicTitle>

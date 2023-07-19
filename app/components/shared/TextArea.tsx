@@ -36,6 +36,7 @@ const TextArea = ({ name, rows = 4, label, placeholder, value, type, disabled = 
     return (
         <label className={`block ${className}`}>
             <Text>{label}</Text>
+            {/* @ts-ignore */}
             <BaseTextArea {...textAreaProps}/>
 
             {meta.touched && meta.error && (

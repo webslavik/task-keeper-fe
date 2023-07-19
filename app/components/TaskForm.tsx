@@ -88,6 +88,7 @@ const TaskForm = (task: Props) => {
                     </Button>
 
                     {task.id && (
+                        // @ts-ignore
                         <Button type={BUTTON_TYPES.primary} danger onClick={onDelete} disabled={isLoading}>
                             Delete
                         </Button>

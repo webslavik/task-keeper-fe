@@ -83,6 +83,7 @@ const SignUpForm = () => {
                     </Field>
 
                     {isError && error && (
+                        // @ts-ignore
                         <ErrorMessage message={error.data.detail} className='mb-4' />
                     )}
 

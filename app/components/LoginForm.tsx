@@ -33,6 +33,7 @@ const LoginForm = () => {
     const onSubmit = async (values: any) => {
         dispatch(startLoading());
 
+        // @ts-ignore
         const { data } = await loginUser(values);
         const { access_token: accessToken, user } = data ?? {};
 
@@ -70,6 +71,7 @@ const LoginForm = () => {
                     </Field>
 
                     {isError && error && (
+                        // @ts-ignore
                         <ErrorMessage message={error.data.detail} className='mb-4' />
                     )}
 
